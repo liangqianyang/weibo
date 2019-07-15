@@ -20,6 +20,16 @@ class UsersController extends Controller
     }
 
     /**
+     * 用户列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
+    public function index()
+    {
+        $users = User::paginate(10);
+        return view('users.index', compact('users'));
+    }
+
+    /**
      * 注册用户的页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
