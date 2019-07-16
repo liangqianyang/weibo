@@ -20,3 +20,5 @@ Route::resource('users', 'UsersController');//个人注册相关功能
 Route::get('login', 'SessionsController@create')->name('login');//登陆界面
 Route::post('login', 'SessionsController@store')->name('login');//登陆
 Route::delete('logout', 'SessionsController@destroy')->name('logout');//退出登录
+
+Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');//邮件激活
