@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Mail;
