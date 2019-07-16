@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Status;
 use Auth;
+
 class StaticPagesController extends Controller
 {
     public function home()
