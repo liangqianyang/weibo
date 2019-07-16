@@ -71,4 +71,57 @@ class User extends Authenticatable
         return $this->statuses()
             ->orderBy('created_at', 'desc');
     }
+
+    /**
+     * 关联粉丝
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
+    }
+
+    /**
+     * 关联关注
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
+    }
+
+    /**
+     * 关注
+     * @param $user_ids
+     */
+    public function follow($user_ids)
+    {
+        if ( ! is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->sync($user_ids, false);
+    }
+
+    /**
+     * 取消关注
+     * @param $user_ids
+     */
+    public function unfollow($user_ids)
+    {
+        if ( ! is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+
+    /**
+     * 是否关注
+     * @param $user_id
+     * @return mixed
+     */
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
+    }
 }
