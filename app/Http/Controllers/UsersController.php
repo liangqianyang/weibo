@@ -12,7 +12,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index','confirmEmail']
+            'except' => ['show', 'create', 'store', 'index', 'confirmEmail']
         ]);
 
         $this->middleware('guest', [
@@ -46,7 +46,10 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('users.show', compact('user', 'statuses'));
     }
 
     /**
@@ -163,4 +166,5 @@ class UsersController extends Controller
         session()->flash('success', '成功删除用户！');
         return back();
     }
+
 }
