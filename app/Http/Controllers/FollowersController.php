@@ -43,7 +43,7 @@ class FollowersController extends Controller
         if (Auth::user()->isFollowing($user->id)) {
             Auth::user()->unfollow($user->id);
         }
-        
+
         return redirect()->route('users.show', $user->id);
     }
 }
