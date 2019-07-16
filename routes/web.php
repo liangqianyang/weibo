@@ -22,3 +22,10 @@ Route::post('login', 'SessionsController@store')->name('login');//登陆
 Route::delete('logout', 'SessionsController@destroy')->name('logout');//退出登录
 
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');//邮件激活
+
+//重置密码开始
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');//显示重置密码的邮箱发送页面
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');//邮箱发送重设链接
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');//密码更新页面
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');//执行密码更新操作
+//重置密码结束
