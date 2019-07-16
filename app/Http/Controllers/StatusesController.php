@@ -34,4 +34,23 @@ class StatusesController extends Controller
         session()->flash('success', '发布成功!');
         return redirect()->back();
     }
+
+
+    /**
+     * 删除微博
+     * @param Status $status
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Status $status)
+    {
+        try {
+            $this->authorize('destroy', $status);
+            $status->delete();
+            session()->flash('success', '微博已被成功删除！');
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            session()->flash('error', '程序异常！');
+            return redirect()->back();
+        }
+    }
 }
