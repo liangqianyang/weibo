@@ -87,7 +87,7 @@ class UsersController extends Controller
         $to = $user->email;
         $subject = "感谢注册 Weibo 应用！请确认你的邮箱。";
         Mail::send($view, $data, function ($message) use ($form, $name, $to, $subject) {
-            $message->from($form, $name)->to($to)->subject($subject);
+            $message->to($to)->subject($subject);
         });
 
     }
